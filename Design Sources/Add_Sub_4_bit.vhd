@@ -89,6 +89,5 @@ begin
         V => V,
         C_out => C_out);
         
-    
-
+            
 end Behavioral;

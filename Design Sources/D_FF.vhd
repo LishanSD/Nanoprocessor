@@ -47,9 +47,6 @@ begin
         if (Res = '1') then
             Q <= '0';
             Qbar <= '1';
-        elsif (rising_edge(Clk)) then
-            Q <= D;
-            Qbar <= not D;
         end if;
     end process;
 

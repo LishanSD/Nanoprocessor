@@ -40,7 +40,9 @@ entity Mux_2_way_3_bit is
 end Mux_2_way_3_bit;
 
 architecture Behavioral of Mux_2_way_3_bit is
+
 begin
+
     Y(0) <= ((NOT(S) AND A1(0)) OR (S AND A2(0))) ;
     Y(1) <= ((NOT(S) AND A1(1)) OR (S AND A2(1))) ;
     Y(2) <= ((NOT(S) AND A1(2)) OR (S AND A2(2))) ;

@@ -1,52 +1,78 @@
 ----------------------------------------------------------------------------------
--- Engineer: Lishan
+-- Company: 
+-- Engineer: 
 -- 
--- Design Name: 3-to-8 Decoder using two 2-to-4 Decoders
--- Description: Hierarchical design with enable input
+-- Create Date: 03/27/2023 10:37:07 PM
+-- Design Name: 
+-- Module Name: Decoder_3_to_8 - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
 ----------------------------------------------------------------------------------
+
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
 entity Decoder_3_to_8 is
-    Port (
-        I  : in  STD_LOGIC_VECTOR (2 downto 0);
-        EN : in  STD_LOGIC;
-        Y  : out STD_LOGIC_VECTOR (7 downto 0)
-    );
+    Port ( I : in STD_LOGIC_VECTOR (2 downto 0);
+           EN : in STD_LOGIC;
+           Y : out STD_LOGIC_VECTOR (7 downto 0));
 end Decoder_3_to_8;
 
-architecture Structural of Decoder_3_to_8 is
+architecture Behavioral of Decoder_3_to_8 is
 
-    -- Reuse optimized 2-to-4 decoder
-    component Decoder_2_to_4 
-        Port (
-            I  : in  STD_LOGIC_VECTOR (1 downto 0);
-            EN : in  STD_LOGIC;
-            Y  : out STD_LOGIC_VECTOR (3 downto 0)
-        );
-    end component;
+component Decoder_2_to_4 
+    port(
+    I: in STD_LOGIC_VECTOR;
+    EN: in STD_LOGIC;
+    Y: out STD_LOGIC_VECTOR);
+end component;
 
-    signal Y_low, Y_high : STD_LOGIC_VECTOR (3 downto 0);
+signal I0, I1 : STD_LOGIC_VECTOR (1 downto 0);
+signal Y0, Y1 : STD_LOGIC_VECTOR (3 downto 0);
+signal en0, en1, I2 : STD_LOGIC;
 
 begin
-    -- Instantiate lower half decoder (for I(2) = 0)
-    Dec_Low : Decoder_2_to_4
-        port map (
-            I  => I(1 downto 0),
-            EN => (not I(2)) and EN,
-            Y  => Y_low
-        );
 
-    -- Instantiate upper half decoder (for I(2) = 1)
-    Dec_High : Decoder_2_to_4
-        port map (
-            I  => I(1 downto 0),
-            EN => I(2) and EN,
-            Y  => Y_high
-        );
+Decoder_2_to_4_0 : Decoder_2_to_4
+    port map(
+    I => I0,
+    EN => en0,
+    Y => Y0 );
+    
+Decoder_2_to_4_1 : Decoder_2_to_4
+    port map(
+    I => I1,
+    EN => en1,
+    Y => Y1 );
 
-    -- Combine outputs
-    Y <= Y_low & Y_high;
+ en0 <= NOT(I(2)) AND EN;
+ en1 <= I(2) AND EN;
+ 
+ I0 <= I(1 downto 0);
+ I1 <= I(1 downto 0);
+ 
+ I2 <= I(2);
+ 
+ Y(3 downto 0) <= Y0;
+ Y(7 downto 4) <= Y1;
 
-end Structural;
+end Behavioral;

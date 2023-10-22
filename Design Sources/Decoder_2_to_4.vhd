@@ -45,11 +45,8 @@ begin
     begin
         if EN = '1' then
             case I is
-                when "00" => Y <= "0001";
-                when "01" => Y <= "0010";
             end case;
-        else
-            Y <= (others => '0');
+
         end if;
     end process;
 end Behavioral;

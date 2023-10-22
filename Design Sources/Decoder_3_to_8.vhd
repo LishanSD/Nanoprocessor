@@ -60,6 +60,7 @@ Decoder_2_to_4_0 : Decoder_2_to_4
     
 Decoder_2_to_4_1 : Decoder_2_to_4
     port map(
+    I => I1,
     EN => en1,
     Y => Y1 );
 
